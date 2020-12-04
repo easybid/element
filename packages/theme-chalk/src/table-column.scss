@@ -49,6 +49,10 @@
     min-width: 100px;
   }
 
+  @include e(search) {
+    padding: 10px;
+  }
+
   @include e(bottom) {
     border-top: 1px solid $--border-color-lighter;
     padding: 8px;

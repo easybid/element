@@ -6,7 +6,17 @@
       v-clickoutside="handleOutsideClick"
       v-show="showPopper">
       <div class="el-table-filter__content">
-        <el-scrollbar wrap-class="el-table-filter__wrap">
+        <div class="el-table-filter__search">
+          <el-input
+            ref="filterSearch"
+            v-if="filterSearch"
+            v-model="filterSearchValue"
+            clearable
+            @keypress.enter.native="handleFilterSearch">
+            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+          </el-input>
+        </div>
+        <el-scrollbar v-if="filters && filters.length" wrap-class="el-table-filter__wrap">
           <el-checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue">
             <el-checkbox
               v-for="filter in filters"
@@ -17,8 +27,8 @@
       </div>
       <div class="el-table-filter__bottom">
         <button @click="handleConfirm"
-          :class="{ 'is-disabled': filteredValue.length === 0 }"
-          :disabled="filteredValue.length === 0">{{ t('el.table.confirmFilter') }}</button>
+          :class="{ 'is-disabled': disabledConfirm }"
+          :disabled="disabledConfirm">{{ t('el.table.confirmFilter') }}</button>
         <button @click="handleReset">{{ t('el.table.resetFilter') }}</button>
       </div>
     </div>
@@ -51,6 +61,7 @@
   import ElCheckbox from 'element-ui/packages/checkbox';
   import ElCheckboxGroup from 'element-ui/packages/checkbox-group';
   import ElScrollbar from 'element-ui/packages/scrollbar';
+  import ElInput from 'element-ui/packages/input';
 
   export default {
     name: 'ElTableFilterPanel',
@@ -64,7 +75,8 @@
     components: {
       ElCheckbox,
       ElCheckboxGroup,
-      ElScrollbar
+      ElScrollbar,
+      ElInput
     },
 
     props: {
@@ -91,6 +103,7 @@
       },
 
       handleReset() {
+        this.filterSearchValue = '';
         this.filteredValue = [];
         this.confirmFilter(this.filteredValue);
         this.handleOutsideClick();
@@ -114,6 +127,18 @@
           values: filteredValue
         });
         this.table.store.updateAllSelected();
+      },
+
+      handleFilterSearch() {
+        if (this.filteredValue) {
+          const value = this.filterSearchValue;
+          if ((typeof value !== 'undefined') && (value !== '')) {
+            this.filteredValue = [value];
+          } else {
+            this.filteredValue = [];
+          }
+        }
+        this.handleConfirm();
       }
     },
 
@@ -159,11 +184,44 @@
         }
       },
 
+      filterSearch() {
+        return this.column && this.column.filterSearch;
+      },
+
+      filterSearchValue: {
+        get() {
+          if (this.column) {
+            return this.column.filterSearchValue || '';
+          }
+          return '';
+        },
+        set(value) {
+          if (this.column) {
+            this.column.filterSearchValue = value;
+          }
+          if (this.filteredValue) {
+            if ((typeof value !== 'undefined') && (value !== null)) {
+              this.filteredValue.splice(0, 1, value);
+            } else {
+              this.filteredValue.splice(0, 1);
+            }
+          }
+          console.log('set', this.filteredValue);
+        }
+      },
+
       multiple() {
         if (this.column) {
           return this.column.filterMultiple;
         }
         return true;
+      },
+
+      disabledConfirm() {
+        if (this.filterSearch) {
+          return !this.filterSearchValue.length;
+        }
+        return this.filteredValue.length === 0;
       }
     },
 
@@ -187,6 +245,11 @@
       showPopper(val) {
         if (val === true && parseInt(this.popperJS._popper.style.zIndex, 10) < PopupManager.zIndex) {
           this.popperJS._popper.style.zIndex = PopupManager.nextZIndex();
+        }
+        if (val && this.filterSearch && this.$refs.filterSearch) {
+          this.$nextTick(() => {
+            this.$refs.filterSearch.focus();
+          });
         }
       }
     }
