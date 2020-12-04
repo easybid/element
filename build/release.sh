@@ -2,7 +2,7 @@
 set -e
 
 git checkout master
-git merge dev
+git merge eb
 
 VERSION=`npx select-version-cli`
 
@@ -38,9 +38,9 @@ then
   # publish
   git push eleme master
   git push eleme refs/tags/v$VERSION
-  git checkout dev
+  git checkout eb
   git rebase master
-  git push eleme dev
+  git push eleme eb
 
   if [[ $VERSION =~ "beta" ]]
   then
