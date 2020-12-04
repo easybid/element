@@ -1017,6 +1017,8 @@
     <el-table-column
       prop="address"
       label="地址"
+      filter-search
+      :filter-method="filterAddress"
       :formatter="formatter">
     </el-table-column>
     <el-table-column
@@ -1078,7 +1080,11 @@
       filterHandler(value, row, column) {
         const property = column['property'];
         return row[property] === value;
-      }
+      },
+      filterAddress(value, row, column) {
+        const property = column['property'];
+        return row[property].includes(value);
+      },
     }
   }
 </script>
