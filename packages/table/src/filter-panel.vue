@@ -206,7 +206,6 @@
               this.filteredValue.splice(0, 1);
             }
           }
-          console.log('set', this.filteredValue);
         }
       },
 
