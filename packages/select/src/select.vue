@@ -108,6 +108,7 @@
         ref="popper"
         :append-to-body="popperAppendToBody"
         v-show="visible && emptyText !== false">
+        <slot name="header"></slot>
         <el-scrollbar
           tag="ul"
           wrap-class="el-select-dropdown__wrap"
@@ -128,6 +129,7 @@
             {{ emptyText }}
           </p>
         </template>
+        <slot name="footer"></slot>
       </el-select-menu>
     </transition>
   </div>
