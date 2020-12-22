@@ -15,6 +15,8 @@
       :label="item.label"
       :value="item.value">
     </el-option>
+    <p style="text-align: center;" slot="header">header</p>
+    <p style="text-align: center;" slot="footer">footer</p>
   </el-select>
 </template>
 
