@@ -206,8 +206,11 @@ export default {
       }
       let doRemove = () => {
         this.abort(file);
-        let fileList = this.uploadFiles;
-        fileList.splice(fileList.indexOf(file), 1);
+        const fileList = this.uploadFiles;
+        const fileIndex = fileList.findIndex(x => file.uid === x.uid);
+        if (fileIndex !== -1) {
+          fileList.splice(fileIndex, 1);
+        }
         this.onRemove(file, fileList);
       };
 
