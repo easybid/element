@@ -66,12 +66,16 @@ export default {
       this.uploadFiles(files);
     },
     uploadFiles(files) {
+      let postFiles = [];
       if (this.limit && this.fileList.length + files.length > this.limit) {
-        this.onExceed && this.onExceed(files, this.fileList);
-        return;
+        const remainLen = this.limit - this.fileList.length;
+        postFiles = Array.prototype.slice.call(files, 0, remainLen);
+        const discardedFiles = Array.prototype.slice.call(files, remainLen, files.length);
+        this.onExceed && this.onExceed(discardedFiles, this.fileList);
+      } else {
+        postFiles = Array.prototype.slice.call(files);
       }
-
-      let postFiles = Array.prototype.slice.call(files);
+      
       if (!this.multiple) { postFiles = postFiles.slice(0, 1); }
 
       if (postFiles.length === 0) { return; }
