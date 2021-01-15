@@ -25,7 +25,7 @@
             <el-checkbox class="el-table-filter__checkbox-all" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">{{ t('el.table.checkAll') }}</el-checkbox>
             <el-checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue"  @change="handleCheckedFiltersChange">
               <el-checkbox
-                v-for="filter in filters"
+                v-for="filter in filtersOptions"
                 :key="filter.value"
                 :label="filter.value">{{ filter.text }}</el-checkbox>
             </el-checkbox-group>
@@ -135,6 +135,12 @@
       },
 
       handleFilterSearch() {
+        // 输入框确认分两种情况，一种是直接搜索，一种是搜索筛选项
+        if (this.filters) {
+          // 多选+搜索模式
+          return;
+        }
+        // 搜索模式
         if (this.filteredValue) {
           const value = this.filterSearchValue;
           if ((typeof value !== 'undefined') && (value !== '')) {
@@ -171,6 +177,14 @@
     computed: {
       filters() {
         return this.column && this.column.filters;
+      },
+
+      filtersOptions() {
+        if (this.filterSearch) {
+          return this.filters.filter(filter => [filter.value, filter.text].some(val => val.includes(this.filterSearchValue)));
+        } else {
+          return this.filters;
+        }
       },
 
       filterValue: {
@@ -217,6 +231,12 @@
           if (this.column) {
             this.column.filterSearchValue = value;
           }
+          // 输入框赋值分两种情况，一种是只赋值输入框用于过滤筛选项，一种是同步到筛选值
+          if (this.filters) {
+            // 多选+搜索模式
+            return;
+          }
+          // 搜索模式
           if (this.filteredValue) {
             if ((typeof value !== 'undefined') && (value !== null)) {
               this.filteredValue.splice(0, 1, value);
