@@ -92,6 +92,9 @@ export default {
       emptyText: 'No Data',
       confirmFilter: 'Confirm',
       resetFilter: 'Reset',
+      cancel: 'Cancel',
+      confirm: 'Ok',
+      checkAll: 'Check All',
       clearFilter: 'All',
       sumText: 'Sum'
     },

@@ -92,7 +92,10 @@ export default {
       emptyText: '暂无数据',
       confirmFilter: '筛选',
       resetFilter: '重置',
+      cancel: '取消',
+      confirm: '确认',
       clearFilter: '全部',
+      checkAll: '全选',
       sumText: '合计'
     },
     tree: {

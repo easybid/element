@@ -22,14 +22,21 @@
             <el-button @click="handleFilterSearch" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
-        <el-scrollbar v-if="filters && filters.length" wrap-class="el-table-filter__wrap">
-          <el-checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue">
-            <el-checkbox
-              v-for="filter in filters"
-              :key="filter.value"
-              :label="filter.value">{{ filter.text }}</el-checkbox>
-          </el-checkbox-group>
-        </el-scrollbar>
+        <template v-if="filters && filters.length">
+          <el-scrollbar wrap-class="el-table-filter__wrap">
+            <el-checkbox class="el-table-filter__checkbox-all" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">{{ t('el.table.checkAll') }}</el-checkbox>
+            <el-checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue"  @change="handleCheckedFiltersChange">
+              <el-checkbox
+                v-for="filter in filters"
+                :key="filter.value"
+                :label="filter.value">{{ filter.text }}</el-checkbox>
+            </el-checkbox-group>
+          </el-scrollbar>
+          <!-- <div class="el-table-filter__bottom">
+            <button @click="handleOutsideClick">{{ t('el.table.cancel') }}</button>
+            <button @click="handleConfirm">{{ t('el.table.ok') }}</button>
+          </div> -->
+        </template>
       </div>
     </div>
     <div
@@ -82,7 +89,7 @@
     props: {
       placement: {
         type: String,
-        default: 'bottom-end'
+        default: 'bottom-start'
       }
     },
 
@@ -139,6 +146,17 @@
           }
         }
         this.handleConfirm();
+      },
+
+      handleCheckAllChange(val) {
+        this.filteredValue = val ? this.filters.map(filter => filter.value) : [];
+        this.isIndeterminate = false;
+      },
+
+      handleCheckedFiltersChange(val) {
+        const checkedCount = val.length;
+        this.checkAll = checkedCount === this.filters.length;
+        this.isIndeterminate = checkedCount > 0 && checkedCount < this.filters.length;
       }
     },
 
@@ -146,7 +164,9 @@
       return {
         table: null,
         cell: null,
-        column: null
+        column: null,
+        checkAll: false,
+        isIndeterminate: false
       };
     },
 

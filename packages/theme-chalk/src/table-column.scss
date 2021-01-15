@@ -50,12 +50,16 @@
   }
 
   @include e(search) {
-    padding: 10px;
+    padding: 0 5px 5px;
+  }
+
+  @include e(bottom) {
+    text-align: right;
+    border-top: 1px solid $--border-color-lighter;
   }
 
   @include e(top) {
-    border-bottom: 1px solid $--border-color-lighter;
-    padding: 8px;
+    padding: 5px;
 
     button {
       background: transparent;
@@ -86,6 +90,17 @@
 
   @include e(wrap) {
     max-height: 280px;
+    width: 230px;
+    border: 1px solid $--border-color-lighter;
+    border-radius: $--border-radius-base;
+    margin: 5px;
+  }
+
+  @include e(checkbox-all) {
+    display: block;
+    padding: 10px 10px 0;
+    margin-right: 5px;
+    margin-left: 5px;
   }
 
   @include e(checkbox-group) {
