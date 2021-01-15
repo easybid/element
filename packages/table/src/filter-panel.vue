@@ -6,9 +6,7 @@
       v-clickoutside="handleOutsideClick"
       v-show="showPopper">
       <div class="el-table-filter__top">
-        <button @click="handleConfirm"
-          :class="{ 'is-disabled': disabledConfirm }"
-          :disabled="disabledConfirm">{{ t('el.table.confirmFilter') }}</button>
+        <button>{{ t('el.table.confirmFilter') }}</button>
         <button class="el-table-filter__top--reset" @click="handleReset">{{ t('el.table.resetFilter') }}</button>
       </div>
       <div class="el-table-filter__content">
@@ -32,10 +30,10 @@
                 :label="filter.value">{{ filter.text }}</el-checkbox>
             </el-checkbox-group>
           </el-scrollbar>
-          <!-- <div class="el-table-filter__bottom">
-            <button @click="handleOutsideClick">{{ t('el.table.cancel') }}</button>
-            <button @click="handleConfirm">{{ t('el.table.ok') }}</button>
-          </div> -->
+          <div class="el-table-filter__bottom">
+            <button class="el-table-filter__bottom--cancel" @click="handleOutsideClick">{{ t('el.table.cancel') }}</button>
+            <button @click="handleConfirm">{{ t('el.table.confirm') }}</button>
+          </div>
         </template>
       </div>
     </div>

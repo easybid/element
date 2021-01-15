@@ -54,8 +54,36 @@
   }
 
   @include e(bottom) {
+    padding: 5px;
     text-align: right;
     border-top: 1px solid $--border-color-lighter;
+
+    button {
+      background: transparent;
+      border: none;
+      color: $--color-primary;
+      cursor: pointer;
+      font-size: $--font-size-small;
+      padding: 0 3px;
+
+      &:hover {
+        color: $--color-primary;
+      }
+
+      &:focus {
+        outline: none;
+      }
+
+      &.is-disabled {
+        color: $--disabled-color-base;
+        cursor: not-allowed;
+      }
+    }
+
+    @include m(cancel) {
+      color: $--color-text-secondary !important;
+      margin-right: 10px;
+    }
   }
 
   @include e(top) {
@@ -93,7 +121,7 @@
     width: 230px;
     border: 1px solid $--border-color-lighter;
     border-radius: $--border-radius-base;
-    margin: 5px;
+    margin: 0 5px 5px;
   }
 
   @include e(checkbox-all) {
