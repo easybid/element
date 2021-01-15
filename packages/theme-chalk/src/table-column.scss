@@ -53,8 +53,8 @@
     padding: 10px;
   }
 
-  @include e(bottom) {
-    border-top: 1px solid $--border-color-lighter;
+  @include e(top) {
+    border-bottom: 1px solid $--border-color-lighter;
     padding: 8px;
 
     button {
@@ -77,6 +77,10 @@
         color: $--disabled-color-base;
         cursor: not-allowed;
       }
+    }
+
+    @include m(reset) {
+      float: right;
     }
   }
 

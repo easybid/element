@@ -5,15 +5,21 @@
       v-if="multiple"
       v-clickoutside="handleOutsideClick"
       v-show="showPopper">
+      <div class="el-table-filter__top">
+        <button @click="handleConfirm"
+          :class="{ 'is-disabled': disabledConfirm }"
+          :disabled="disabledConfirm">{{ t('el.table.confirmFilter') }}</button>
+        <button class="el-table-filter__top--reset" @click="handleReset">{{ t('el.table.resetFilter') }}</button>
+      </div>
       <div class="el-table-filter__content">
-        <div class="el-table-filter__search">
+        <div v-if="filterSearch" class="el-table-filter__search">
           <el-input
             ref="filterSearch"
-            v-if="filterSearch"
             v-model="filterSearchValue"
             clearable
+            size="small"
             @keypress.enter.native="handleFilterSearch">
-            <i slot="prefix" class="el-input__icon el-icon-search"></i>
+            <el-button @click="handleFilterSearch" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
         <el-scrollbar v-if="filters && filters.length" wrap-class="el-table-filter__wrap">
@@ -24,12 +30,6 @@
               :label="filter.value">{{ filter.text }}</el-checkbox>
           </el-checkbox-group>
         </el-scrollbar>
-      </div>
-      <div class="el-table-filter__bottom">
-        <button @click="handleConfirm"
-          :class="{ 'is-disabled': disabledConfirm }"
-          :disabled="disabledConfirm">{{ t('el.table.confirmFilter') }}</button>
-        <button @click="handleReset">{{ t('el.table.resetFilter') }}</button>
       </div>
     </div>
     <div
