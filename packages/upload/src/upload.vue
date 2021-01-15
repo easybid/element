@@ -75,7 +75,7 @@ export default {
       } else {
         postFiles = Array.prototype.slice.call(files);
       }
-      
+
       if (!this.multiple) { postFiles = postFiles.slice(0, 1); }
 
       if (postFiles.length === 0) { return; }
