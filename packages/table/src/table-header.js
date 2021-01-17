@@ -117,12 +117,17 @@ export default {
                         column.sortable ? (<span
                           class="caret-wrapper"
                           on-click={ ($event) => this.handleSortClick($event, column) }>
-                          <i class="sort-caret ascending"
+                          <svg t="1610873304216" class="sort-caret default" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3843">
+                            <path d="M967.111111 682.666667l-227.555555 227.555555-227.555556-227.555555h170.666667V170.666667h113.777777v512zM512 341.333333L284.444444 113.777778 56.888889 341.333333h170.666667v512h113.777777V341.333333z" p-id="3844"></path>
+                          </svg>
+                          <svg t="1610873400618" class="sort-caret ascending" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3983"><path d="M739.555556 682.666667l-227.555556 227.555555-227.555556-227.555555h170.666667V170.666667h113.777778v512z" p-id="3984"></path></svg>
+                          <svg t="1610873423815" class="sort-caret descending" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4123"><path d="M568.888889 341.333333v512H455.111111V341.333333H284.444444l227.555556-227.555555 227.555556 227.555555z" p-id="4124"></path></svg>
+                          {/* <i class="sort-caret ascending"
                             on-click={ ($event) => this.handleSortClick($event, column, 'ascending') }>
                           </i>
                           <i class="sort-caret descending"
                             on-click={ ($event) => this.handleSortClick($event, column, 'descending') }>
-                          </i>
+                          </i> */}
                         </span>) : ''
                       }
                       {
