@@ -5,6 +5,13 @@
       v-if="multiple"
       v-clickoutside="handleOutsideClick"
       v-show="showPopper">
+      <div v-if="sortable" class="el-table-filter__sort">
+        <span class="el-table-filter__sort--title">排序</span>
+        <div class="el-table-filter__sort--btns">
+          <el-button @click="handleSortClick('ascending')" class="el-table-filter__sort--ascending" :type="sortOrder === 'ascending' ? 'primary' : 'default'" size="small">升序</el-button>
+          <el-button @click="handleSortClick('descending')" class="el-table-filter__sort--descending" :type="sortOrder === 'descending' ? 'primary' : 'default'" size="small">降序</el-button>
+        </div>
+      </div>
       <div class="el-table-filter__top">
         <button>{{ t('el.table.confirmFilter') }}</button>
         <button class="el-table-filter__top--reset" @click="handleReset">{{ t('el.table.resetFilter') }}</button>
@@ -161,6 +168,26 @@
         const checkedCount = val.length;
         this.checkAll = checkedCount === this.filters.length;
         this.isIndeterminate = checkedCount > 0 && checkedCount < this.filters.length;
+      },
+
+      handleSortClick(givenOrder) {
+        const sortOrder = this.column.order === givenOrder ? null : givenOrder;
+        const states = this.table.store.states;
+        const sortingColumn = states.sortingColumn;
+
+        if (sortingColumn !== this.column) {
+          if (sortingColumn) {
+            sortingColumn.order = null;
+          }
+          states.sortingColumn = this.column;
+        }
+
+        this.column.order = sortOrder;
+
+        states.sortProp = this.column.property;
+        states.sortOrder = sortOrder;
+
+        this.table.store.commit('changeSortCondition');
       }
     },
 
@@ -259,6 +286,18 @@
           return !this.filterSearchValue.length;
         }
         return this.filteredValue.length === 0;
+      },
+
+      sortable() {
+        return this.column.sortable;
+      },
+
+      sortOrder() {
+        let states = this.table.store.states;
+        if (states.sortingColumn === this.column) {
+          return states.sortOrder;
+        }
+        return null;
       }
     },
 

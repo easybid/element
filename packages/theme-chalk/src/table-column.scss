@@ -54,6 +54,26 @@
     width: 230px;
   }
 
+  @include e(sort) {
+    padding: 5px 5px 0;
+
+    @include m(title) {
+      color: $--color-text-regular;
+      font-size: 13px;
+      padding: 0 3px;
+    }
+    @include m(btns) {
+      display: flex;
+      margin-top: 5px;
+    }
+    @include m(ascending) {
+      flex: 1;
+    }
+    @include m(descending) {
+      flex: 1;
+    }
+  }
+
   @include e(bottom) {
     padding: 5px;
     text-align: right;
