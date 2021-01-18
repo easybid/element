@@ -327,6 +327,7 @@ export default Vue.extend({
           const column = columns.find(col => col.id === key);
           if (column) {
             // TODO: 优化这里的代码
+            panels[key].filterSearchValue = '';
             panels[key].filteredValue = [];
           }
         });
@@ -339,6 +340,7 @@ export default Vue.extend({
       } else {
         keys.forEach(key => {
           // TODO: 优化这里的代码
+          panels[key].filterSearchValue = '';
           panels[key].filteredValue = [];
         });
 
