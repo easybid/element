@@ -161,13 +161,11 @@
 
       handleCheckAllChange(val) {
         this.filteredValue = val ? this.filters.map(filter => filter.value) : [];
-        this.isIndeterminate = false;
       },
 
       handleCheckedFiltersChange(val) {
         const checkedCount = val.length;
         this.checkAll = checkedCount === this.filters.length;
-        this.isIndeterminate = checkedCount > 0 && checkedCount < this.filters.length;
       },
 
       handleSortClick(givenOrder) {
@@ -196,8 +194,7 @@
         table: null,
         cell: null,
         column: null,
-        checkAll: false,
-        isIndeterminate: false
+        checkAll: false
       };
     },
 
@@ -298,6 +295,10 @@
           return states.sortOrder;
         }
         return null;
+      },
+
+      isIndeterminate() {
+        return (this.filteredValue.length !== 0) && (this.filteredValue.length !== this.filters.length);
       }
     },
 
