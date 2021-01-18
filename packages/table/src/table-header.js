@@ -326,9 +326,9 @@ export default {
     },
 
     handleHeaderClick(event, column) {
-      if (!column.filters && column.sortable) {
+      if (!column.filterable && column.sortable) {
         this.handleSortClick(event, column);
-      } else if (column.filterable && !column.sortable) {
+      } else if (column.filterable) {
         this.handleFilterClick(event, column);
       }
 
