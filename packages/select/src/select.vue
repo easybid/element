@@ -208,7 +208,8 @@
         if (this.loading) {
           return this.loadingText || this.t('el.select.loading');
         } else {
-          if (this.remote && this.query === '' && this.options.length === 0) return false;
+          // 远程搜索不显示下拉列表的问题
+          // if (this.remote && this.query === '' && this.options.length === 0) return false;
           if (this.filterable && this.query && this.options.length > 0 && this.filteredOptionsCount === 0) {
             return this.noMatchText || this.t('el.select.noMatch');
           }
