@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { t } from 'element-ui/src/locale';
+import { t } from 'eb-element/src/locale';
 export default {
   name: 'ElPageHeader',
 
