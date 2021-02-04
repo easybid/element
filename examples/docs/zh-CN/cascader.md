@@ -1678,7 +1678,7 @@
 
 :::demo 和级联选择器一样，通过`options`来指定选项，也可通过`props`来设置多选、动态加载等功能，具体详情见下方API表格。
 ```html
-<el-cascader-panel :options="options"></el-cascader-panel>
+<el-cascader-panel :options="options" :props="{ multiple: true}" @cancel="handleCancel" @change="handleChange"></el-cascader-panel>
 
 <script>
   export default {
@@ -1880,6 +1880,14 @@
           }]
         }]
       };
+    },
+    methods: {
+      handleCancel(val) {
+        console.log('handleCancel', val);
+      },
+      handleChange(val) {
+        console.log('handleChange', val);
+      }
     }
   };
 </script>

@@ -286,6 +286,9 @@ export default {
     handleCheckChange(value) {
       this.checkedValue = value;
     },
+    handleCheckCancel(val) {
+      this.$emit('cancel', val);
+    },
     lazyLoad(node, onFullfiled) {
       const { config } = this;
       if (!node) {

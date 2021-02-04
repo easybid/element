@@ -83,6 +83,9 @@
       handleMultiCheckChange(checked) {
         this.node.doCheck(checked);
         this.panel.calculateMultiCheckedValue();
+        if (!checked) {
+          this.panel.handleCheckCancel(this.value);
+        }
       },
 
       isInPath(pathNodes) {
