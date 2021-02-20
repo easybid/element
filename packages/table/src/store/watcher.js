@@ -328,6 +328,7 @@ export default Vue.extend({
           if (column) {
             // TODO: 优化这里的代码
             panels[key].filterSearchValue = '';
+            panels[key].filterConditionValue = '';
             panels[key].filteredValue = [];
           }
         });
@@ -341,6 +342,7 @@ export default Vue.extend({
         keys.forEach(key => {
           // TODO: 优化这里的代码
           panels[key].filterSearchValue = '';
+          panels[key].filterConditionValue = '';
           panels[key].filteredValue = [];
         });
 

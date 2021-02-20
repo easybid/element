@@ -17,6 +17,22 @@
         <button class="el-table-filter__top--reset" @click="handleReset">{{ t('el.table.resetFilter') }}</button>
       </div>
       <div class="el-table-filter__content">
+        <div v-if="showFilterCondition" class="el-table-filter__condition">
+          <el-select v-model="filterCondition" :popper-append-to-body="false" size="small" class="el-table-filter__condition--select">
+            <el-option
+              v-for="item in filterConditions"
+              :key="item.value"
+              :label="item.text"
+              :value="item.value">
+            </el-option>
+          </el-select>
+          <el-input
+            v-model="filterConditionValue"
+            clearable
+            size="small"
+            @keypress.enter.native="handleConfirm">
+          </el-input>
+        </div>
         <div v-if="filterSearch" class="el-table-filter__search">
           <el-input
             ref="filterSearch"
@@ -27,7 +43,7 @@
             <el-button @click="handleFilterSearch" slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
-        <template v-if="filters && filters.length">
+        <template v-if="showFilters">
           <el-scrollbar wrap-class="el-table-filter__wrap">
             <el-checkbox class="el-table-filter__checkbox-all" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">{{ t('el.table.checkAll') }}</el-checkbox>
             <el-checkbox-group class="el-table-filter__checkbox-group" v-model="filteredValue"  @change="handleCheckedFiltersChange">
@@ -37,11 +53,11 @@
                 :label="filter.value">{{ filter.text }}</el-checkbox>
             </el-checkbox-group>
           </el-scrollbar>
-          <div class="el-table-filter__bottom">
-            <button class="el-table-filter__bottom--cancel" @click="handleOutsideClick">{{ t('el.table.cancel') }}</button>
-            <button @click="handleConfirm">{{ t('el.table.confirm') }}</button>
-          </div>
         </template>
+        <div v-if="showFilters || showFilterCondition" class="el-table-filter__bottom">
+          <button class="el-table-filter__bottom--cancel" @click="handleOutsideClick">{{ t('el.table.cancel') }}</button>
+          <button @click="handleConfirm">{{ t('el.table.confirm') }}</button>
+        </div>
       </div>
     </div>
     <div
@@ -110,6 +126,10 @@
       },
 
       handleConfirm() {
+        if (this.showFilterCondition) {
+          // 如果开启了条件筛选
+          this.handleConditionFilter();
+        }
         this.confirmFilter(this.filteredValue);
         this.handleOutsideClick();
       },
@@ -117,6 +137,11 @@
       handleReset() {
         this.filterSearchValue = '';
         this.filteredValue = [];
+        if (this.showFilterCondition) {
+          this.filterCondition = this.filterConditions[0].value;
+          this.filterConditionValue = '';
+        }
+        this.checkAll = false;
         this.confirmFilter(this.filteredValue);
         this.handleOutsideClick();
       },
@@ -157,6 +182,10 @@
           }
         }
         this.handleConfirm();
+      },
+
+      handleConditionFilter() {
+        this.filteredValue = [{ op: this.filterCondition, val: this.filterConditionValue }];
       },
 
       handleCheckAllChange(val) {
@@ -299,6 +328,50 @@
 
       isIndeterminate() {
         return (this.filteredValue.length !== 0) && (this.filteredValue.length !== this.filters.length);
+      },
+
+      filterConditions() {
+        return this.column && this.column.filterConditions;
+      },
+
+      filterCondition: {
+        get() {
+          let defaultVal = '';
+          if (this.showFilterCondition) {
+            defaultVal = this.filterConditions[0].value;
+          }
+          if (this.column) {
+            return this.column.filterCondition || defaultVal;
+          }
+          return defaultVal;
+        },
+        set(value) {
+          if (this.column) {
+            this.column.filterCondition = value;
+          }
+        }
+      },
+
+      filterConditionValue: {
+        get() {
+          if (this.column) {
+            return this.column.filterConditionValue || '';
+          }
+          return '';
+        },
+        set(value) {
+          if (this.column) {
+            this.column.filterConditionValue = value;
+          }
+        }
+      },
+
+      showFilterCondition() {
+        return this.filterConditions && this.filterConditions.length;
+      },
+
+      showFilters() {
+        return this.filters && this.filters.length;
       }
     },
 

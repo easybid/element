@@ -45,6 +45,8 @@ export default {
     filterPlacement: String,
     filterSearch: Boolean,
     filterSearchValue: String,
+    filterConditions: Array,
+    filterConditionValue: String,
     filterMultiple: {
       type: Boolean,
       default: true
@@ -197,7 +199,7 @@ export default {
     },
 
     registerNormalWatchers() {
-      const props = ['label', 'property', 'filters', 'filterMultiple', 'filterSearch', 'filterSearchValue', 'sortable', 'index', 'formatter', 'className', 'labelClassName', 'showOverflowTooltip'];
+      const props = ['label', 'property', 'filters', 'filterMultiple', 'filterSearch', 'filterSearchValue', 'filterConditions', 'filterConditionValue', 'sortable', 'index', 'formatter', 'className', 'labelClassName', 'showOverflowTooltip'];
       // 一些属性具有别名
       const aliases = {
         prop: 'property',
@@ -269,9 +271,12 @@ export default {
       headerAlign: this.realHeaderAlign,
       showOverflowTooltip: this.showOverflowTooltip || this.showTooltipWhenOverflow,
       // filter 相关属性
-      filterable: this.filters || this.filterMethod || this.filterSearch,
+      filterable: this.filters || this.filterMethod || this.filterSearch || this.filterConditions,
       filteredValue: [],
       filterSearchValue: '',
+      filterConditions: [],
+      filterCondition: '',
+      filterConditionValue: '',
       filterPlacement: '',
       isColumnGroup: false,
       filterOpened: false,
@@ -284,7 +289,7 @@ export default {
     const basicProps = ['columnKey', 'label', 'className', 'labelClassName', 'type', 'renderHeader', 'formatter', 'fixed', 'resizable'];
     const sortProps = ['sortMethod', 'sortBy', 'sortOrders'];
     const selectProps = ['selectable', 'reserveSelection'];
-    const filterProps = ['filterMethod', 'filters', 'filterMultiple', 'filterOpened', 'filteredValue', 'filterPlacement', 'filterSearch', 'filterSearchValue'];
+    const filterProps = ['filterMethod', 'filters', 'filterMultiple', 'filterOpened', 'filteredValue', 'filterPlacement', 'filterSearch', 'filterSearchValue', 'filterConditions', 'filterConditionValue'];
 
     let column = this.getPropsData(basicProps, sortProps, selectProps, filterProps);
     column = mergeOptions(defaults, column);

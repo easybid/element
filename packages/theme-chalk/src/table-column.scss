@@ -54,6 +54,16 @@
     width: 230px;
   }
 
+  @include e(condition) {
+    padding: 0 5px 5px;
+    width: 230px;
+
+    @include m(select) {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+  }
+
   @include e(sort) {
     padding: 5px 5px 0;
 
