@@ -1976,6 +1976,10 @@
 | filter-multiple | 数据过滤的选项是否多选 | Boolean | — | true |
 | filter-method | 数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。 | Function(value, row, column) | — | — |
 | filtered-value | 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性。 | Array | — | — |
+| filter-search | 是否开启搜索筛选功能 | Boolean | — | false |
+| filter-search-value | 搜索筛选功能的搜索框的 value 值，filter-search 为 true 时生效 | String | — | — |
+| filter-conditions | 条件筛选功能的筛选项，数组格式，数组中的元素需要有 text 和 value 属性。传值代表开启条件筛选功能 | Array[{ text, value }] | — | — |
+| filter-condition-value | 条件筛选功能的输入值 | String | — | — |
 
 ### Table-column Scoped Slot
 | name | 说明 |
