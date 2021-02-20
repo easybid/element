@@ -1,6 +1,6 @@
 {
   "name": "eb-element",
-  "version": "2.14.13",
+  "version": "2.14.14",
   "description": "A Component Library for Vue.js.",
   "main": "lib/eb-element.common.js",
   "files": [
