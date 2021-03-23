@@ -68,7 +68,7 @@
         default: undefined
       },
       rules: [Object, Array],
-      error: String,
+      error: [String, Object],
       validateStatus: String,
       for: String,
       inlineMessage: {
