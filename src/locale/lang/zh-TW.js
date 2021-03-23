@@ -93,7 +93,10 @@ export default {
       confirmFilter: '篩選',
       resetFilter: '重置',
       clearFilter: '全部',
-      sumText: 'Sum' // to be translated
+      sumText: '合计', // to be translated,
+      sort: '排序',
+      ascending: '升序',
+      descending: '降序'
     },
     tree: {
       emptyText: '暫無資料'

@@ -89,7 +89,12 @@
       error: {
         immediate: true,
         handler(value) {
-          this.validateMessage = value;
+          if (typeof value === 'object' && value.value) {
+            // 兼容 vue3 ref 数据, 展开 ref
+            this.validateMessage = value.value;
+          } else {
+            this.validateMessage = value;
+          }
           this.validateState = value ? 'error' : '';
         }
       },

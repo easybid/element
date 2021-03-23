@@ -6,10 +6,10 @@
       v-clickoutside="handleOutsideClick"
       v-show="showPopper">
       <div v-if="sortable" class="el-table-filter__sort">
-        <span class="el-table-filter__sort--title">排序</span>
+        <span class="el-table-filter__sort--title">{{ t('el.table.sort') }}</span>
         <div class="el-table-filter__sort--btns">
-          <el-button @click="handleSortClick('ascending')" class="el-table-filter__sort--ascending" :type="sortOrder === 'ascending' ? 'primary' : 'default'" size="small">升序</el-button>
-          <el-button @click="handleSortClick('descending')" class="el-table-filter__sort--descending" :type="sortOrder === 'descending' ? 'primary' : 'default'" size="small">降序</el-button>
+          <el-button @click="handleSortClick('ascending')" class="el-table-filter__sort--ascending" :type="sortOrder === 'ascending' ? 'primary' : 'default'" size="small">{{ t('el.table.ascending') }}</el-button>
+          <el-button @click="handleSortClick('descending')" class="el-table-filter__sort--descending" :type="sortOrder === 'descending' ? 'primary' : 'default'" size="small">{{ t('el.table.descending') }}</el-button>
         </div>
       </div>
       <div class="el-table-filter__top">

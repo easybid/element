@@ -96,7 +96,10 @@ export default {
       confirm: '确认',
       clearFilter: '全部',
       checkAll: '全选',
-      sumText: '合计'
+      sumText: '合计',
+      sort: '排序',
+      ascending: '升序',
+      descending: '降序'
     },
     tree: {
       emptyText: '暂无数据'

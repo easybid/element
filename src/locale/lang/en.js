@@ -96,7 +96,10 @@ export default {
       confirm: 'Ok',
       checkAll: 'Check All',
       clearFilter: 'All',
-      sumText: 'Sum'
+      sumText: 'Sum',
+      sort: 'Sort',
+      ascending: 'Ascending',
+      descending: 'Descending'
     },
     tree: {
       emptyText: 'No Data'
